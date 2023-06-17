@@ -1,4 +1,4 @@
-require('./database/mongodb')
+require('./src/database/mongodb')
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
@@ -6,10 +6,9 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 // var cors = require('cors');
 
-const indexRouter = require('./routes/indexRouter')
-const movieRouter = require('./routes/movieRouter')
-const creditCardRouter = require('./routes/CreditCardRouter')
-const customerRouter = require('./routes/customerRouter')
+const creditCardRouter = require('./src/routes/CreditCardRouter')
+const customerRouter = require('./src/routes/customerRouter')
+const categoryRouter = require('./src/routes/categoryRouter')
 
 const app = express()
 app.set('views', path.join(__dirname, 'views'))
@@ -20,10 +19,9 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter)
-app.use('/movie', movieRouter)
 app.use('/creditCard', creditCardRouter)
 app.use('/customer', customerRouter)
+app.use('/category', categoryRouter)
 
 app.use(function (req, res, next) {
   next(createError(404))
