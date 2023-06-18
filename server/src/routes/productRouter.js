@@ -9,14 +9,17 @@ router.post('/', productController.create)
 router.get('/', productController.list)
 
 // Rota para obter um produto pelo código
-router.get('/:code', productController.getById)
+router.get('/:id', productController.getById)
 
 // Rota para atualizar um produto pelo código
-router.put('/:code', productController.update)
+router.put('/:id', productController.update)
 
-// Rota para excluir um produto pelo código
-router.delete('/:code', productController.delete)
+// Rota para inativar um produto pelo código [USAR PATCH PARA EXCLUSÃO LÓGICA]
+// router.patch('/:id', productController.inactivate)
+
+// Rota para excluir um produto pelo código [APENAS PARA DEMONSTRAÇÃO, NÃO UTILIZAR EM PRODUÇÃO]
+router.delete('/:id', productController.delete)
 
 module.exports = router
 
-// Path: src\routes\commentRouter.js
+// Path: src\routes\ProductRouter.js

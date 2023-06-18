@@ -4,12 +4,16 @@
 const Product = require('../models/productModel')
 
 class ProductController {
+
+    // Criar produto - ok
     async create(req, res) {
-        const product = req.body
-        const max = await Product.findOne({}).sort({ code: -1 })
-        product.code = max == null ? 1 : max.code + 1
-        const result = await Product.create(product)
-        res.status(201).json(result)
+        try{
+            const product = req.body
+            const result = await Product.create(product)
+            res.status(201).json(result)
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
     }
 
     async list(req, res) {
@@ -37,3 +41,5 @@ class ProductController {
 }
 
 module.exports = new ProductController()
+
+// Path: src\controllers\ProductController.js

@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     },
-    typeAnimal: {
+    typeOfAnimal: {
         type: String,
         required: true,
     },
