@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const customerController = require('../controllers/CustomerController')
+const CustomerController = require('../controllers/CustomerController')
 
 
 /* 
@@ -10,21 +10,21 @@ const customerController = require('../controllers/CustomerController')
 */
 
 // Rota para criar um novo cliente
-router.post('/', customerController.create)
+router.post('/', CustomerController.create)
 
 // Rota para listar todos os clientes
-router.get('/', customerController.list)
+router.get('/', CustomerController.list)
 
 // Rota para obter um cliente pelo código
-router.get('/:id', customerController.getById)
+router.get('/:id', CustomerController.getById)
 
 // Rota para atualizar um cliente pelo código
-router.put('/:id', customerController.update)
+router.put('/:id', CustomerController.update)
 
-// Rota para inativar um cliente pelo código
-router.patch('/:id', customerController.inactivate)
+// Rota para inativar um cliente pelo código [USAR PATCH PARA EXCLUSÃO LÓGICA]
+router.patch('/:id', CustomerController.inactivate)
 
 // Rota para excluir um cliente pelo código [APENAS PARA DEMONSTRAÇÃO, NÃO UTILIZAR EM PRODUÇÃO]
-router.delete('/:id', customerController.delete)
+router.delete('/:id', CustomerController.delete)
 
 module.exports = router

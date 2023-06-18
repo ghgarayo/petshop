@@ -8,8 +8,6 @@ class CustomerController {
     async create(req, res) {
         try {
             const customer = req.body
-            const max = await Customer.findOne({}).sort({ id: -1 })
-            customer.codigo = max == null ? 1 : max.codigo + 1
             const result = await Customer.create(customer)
             res.status(201).json(result)
         } catch (error) {

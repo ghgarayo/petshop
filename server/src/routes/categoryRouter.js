@@ -2,20 +2,28 @@ const express = require('express')
 const router = express.Router()
 const CategoryController = require('../controllers/CategoryController')
 
-// Rota: POST /categoria
-// Descrição: Cadastrar uma nova categoria
-router.post('/', CategoryController.cadastrarCategoria)
+/*
 
-// Rota: PUT /categoria/:codigo
-// Descrição: Editar uma categoria existente
-router.put('/:codigo', CategoryController.editarCategoria)
+  As rotas deste documento devem ser acessadas a partir da rota /category
 
-// Rota: GET /categoria
-// Descrição: Retornar a lista completa de categorias
-router.get('/', CategoryController.listarCategorias)
+*/
 
-// Rota: GET /categoria/:codigo
-// Descrição: Retornar uma categoria pelo código
-router.get('/:codigo', CategoryController.obterCategoriaPorCodigo)
+// Rota para criar uma nova categoria
+router.post('/', CategoryController.create)
+
+// Rota para listar todas as categorias
+router.get('/', CategoryController.list)
+
+// Rota para obter uma categoria pelo código
+router.get('/:id', CategoryController.getById)
+
+// Rota para editar uma categoria existente
+router.put('/:id', CategoryController.update)
+
+// Rota para inativar uma categoria pelo código [USAR PATCH PARA EXCLUSÃO LÓGICA]
+router.patch('/:id', CategoryController.inactivate)
+
+// Rota para excluir uma categoria pelo código [APENAS PARA DEMONSTRAÇÃO, NÃO UTILIZAR EM PRODUÇÃO]
+router.delete('/:id', CategoryController.delete)
 
 module.exports = router
