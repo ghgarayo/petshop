@@ -5,18 +5,12 @@ class CreditCardController {
     // Criar um novo cartão de crédito
     async create(req, res) {
         try {
-            const customerId = req.params.customerId
-            const newCreditCard = req.body
-            const creditCardCreated = await CreditCardController.create(
-                newCreditCard
-            )
             // Adiciona o cartão de crédito ao cliente
-            const customer = await CustomerController.findByIdAndUpdate(
-                customerId,
-                { $push: { creditCards: creditCardCreated._id } },
-                { new: true }
-            )
-            res.status(201).json(customer)
+            const updatedCustomer = await CustomerController.updateFromCreditCard(req.body)
+
+            console.log('F', updatedCustomer)
+
+            res.status(201).json('ok')
         } catch (error) {
             res.status(500).json({ message: error.message })
         }

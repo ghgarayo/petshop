@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 
 const commentSchema = new mongoose.Schema({
-    code: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
@@ -18,7 +13,18 @@ const commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customer',
     },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
     comment: String,
+    ativo:{
+        type: Boolean,
+        default: true,
+    }
+
 })
 
-module.exports = mongoose.model('Comments', commentSchema)
+const Comment = mongoose.model('Comment', commentSchema)
+
+module.exports = Comment

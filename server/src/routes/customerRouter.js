@@ -2,6 +2,13 @@ const express = require('express')
 const router = express.Router()
 const customerController = require('../controllers/CustomerController')
 
+
+/* 
+
+  As rotas deste documento devem ser acessadas a partir da rota /customer
+
+*/
+
 // Rota para criar um novo cliente
 router.post('/', customerController.create)
 
@@ -9,15 +16,15 @@ router.post('/', customerController.create)
 router.get('/', customerController.list)
 
 // Rota para obter um cliente pelo código
-router.get('/:codigo', customerController.getById)
+router.get('/:id', customerController.getById)
 
 // Rota para atualizar um cliente pelo código
-router.put('/:codigo', customerController.update)
+router.put('/:id', customerController.update)
 
-// Rota para excluir um cliente pelo código
-router.delete('/:codigo', customerController.delete)
+// Rota para inativar um cliente pelo código
+router.patch('/:id', customerController.inactivate)
 
-// Rota para criar um novo cartão de crédito para um cliente
-router.post('/:customerId/creditCards', customerController.createCreditCard)
+// Rota para excluir um cliente pelo código [APENAS PARA DEMONSTRAÇÃO, NÃO UTILIZAR EM PRODUÇÃO]
+router.delete('/:id', customerController.delete)
 
 module.exports = router

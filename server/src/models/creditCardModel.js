@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 
 const cartaoCreditoSchema = new mongoose.Schema({
-    code:{
-        type: Number,
-        required: true,
-        unique: true,
-    },
     customer: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Customer' 
@@ -16,6 +11,7 @@ const cartaoCreditoSchema = new mongoose.Schema({
     },
     numero: {
         type: String,
+        unique: true,
         required: true,
     },
     cvc: {
@@ -26,13 +22,9 @@ const cartaoCreditoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    bandeira: {
-        type: String,
-        required: true,
-    },
     ativo: {
         type: Boolean,
-        required: true,
+        default: true,
     },
 })
 

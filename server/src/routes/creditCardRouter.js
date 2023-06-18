@@ -6,7 +6,7 @@ const creditCardController = require('../controllers/CreditCardController')
 router.post('/', creditCardController.create)
 
 // Rota para listar todos os cartões de crédito de um cliente
-router.get('/:customerId/creditCards', creditCardController.getAll)
+router.get('/:customerId', creditCardController.getAll)
 
 // Rota para obter um cartão de crédito pelo ID
 router.get('/:id', creditCardController.getById)

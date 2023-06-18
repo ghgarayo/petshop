@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 
 const productSchema = new mongoose.Schema({
-    code: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     name: {
         type: String,
         required: true,
@@ -36,6 +31,10 @@ const productSchema = new mongoose.Schema({
             ref: 'Comment',
         },
     ],
+    ativo: {
+        type: Boolean,
+        default: true,
+    }
 })
 
 const Product = mongoose.model('Product', productSchema)
