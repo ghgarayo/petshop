@@ -9,9 +9,9 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 var cors = require('cors')
 const swaggerUi = require('swagger-ui-express'),
-    swaggerDocument = require('./swagger.json')
+	swaggerDocument = require('./swagger.json')
 
-const creditCardRouter = require('./src/routes/CreditCardRouter')
+// const creditCardRouter = require('./src/routes/CreditCardRouter')
 const customerRouter = require('./src/routes/customerRouter')
 const categoryRouter = require('./src/routes/categoryRouter')
 const productRouter = require('./src/routes/productRouter')
@@ -28,21 +28,21 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.use('/creditCard', creditCardRouter)
+// app.use('/creditCard', creditCardRouter)
 app.use('/customer', customerRouter)
 app.use('/category', categoryRouter)
 app.use('/product', productRouter)
 app.use('/comment', commentRouter)
 
 app.use(function (req, res, next) {
-    next(createError(404))
+	next(createError(404))
 })
 
 app.use(function (err, req, res, next) {
-    res.locals.message = err.message
-    res.locals.error = req.app.get('env') === 'development' ? err : {}
-    res.status(err.status || 500)
-    res.render('error')
+	res.locals.message = err.message
+	res.locals.error = req.app.get('env') === 'development' ? err : {}
+	res.status(err.status || 500)
+	res.render('error')
 })
 
 module.exports = app
