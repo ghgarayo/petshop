@@ -1,4 +1,6 @@
+const bcryptjs = require('bcryptjs')
 const mongoose = require('mongoose')
+
 const { Schema } = mongoose
 
 const customerSchema = new mongoose.Schema({
@@ -36,12 +38,18 @@ const customerSchema = new mongoose.Schema({
 	senha: {
 		type: String,
 		required: true,
-		select: false
+		select: false,
 	},
 	ativo: {
 		type: Boolean,
 		default: true,
 	},
+})
+
+customerSchema.pre('save', async function (next) {
+	const hash = await bcryptjs.hash(this.senha, 10)
+	this.senha = hash
+	next()
 })
 
 const Customer = mongoose.model('Customer', customerSchema)

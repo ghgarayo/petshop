@@ -1,14 +1,17 @@
 const jwt = require('jsonwebtoken')
-const auth = require('./app.json')
-
+const auth = require('../config/app')
 const bcryptjs = require('bcryptjs')
 
 async function incluirToken(customer) {
-	const token = await jwt.sign({ codigo: customer.codigo }, auth.appId, {
-		expiresIn: 3600 // Expira em 3600 segundos ou 1 hora.
-	})
-	customer.token = token
-	customer.senha = undefined
+	const token = {
+		'token' : await jwt.sign({ _id: customer._id }, auth.appId, {
+			expiresIn: 3600 // Expira em 3600 segundos ou 1 hora.
+		})
+	}
+	// customer.token = token
+	// customer.senha = undefined
+
+	return token
 }
 
 async function gerarHash(user) {
@@ -52,3 +55,5 @@ module.exports = {
 	incluirToken,
 	autorizar
 }
+
+// Path: src\services\authenticationService.js

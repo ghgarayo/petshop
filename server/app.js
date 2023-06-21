@@ -16,6 +16,7 @@ const customerRouter = require('./src/routes/customerRouter')
 const categoryRouter = require('./src/routes/categoryRouter')
 const productRouter = require('./src/routes/productRouter')
 const commentRouter = require('./src/routes/commentRouter')
+const authenticationRouter = require('./src/routes/authenticationRouter')
 
 const app = express()
 app.set('views', path.join(__dirname, 'src/views'))
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
+app.use('/login', authenticationRouter)
 // app.use('/creditCard', creditCardRouter)
 app.use('/customer', customerRouter)
 app.use('/category', categoryRouter)
@@ -35,6 +37,8 @@ app.use('/product', productRouter)
 app.use('/comment', commentRouter)
 
 app.use(function (req, res, next) {
+	console.log('Url: ', req.url)
+	console.log('body: ', req.body)
 	next(createError(404))
 })
 

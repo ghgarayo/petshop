@@ -4,10 +4,9 @@
 const Product = require('../models/productModel')
 
 class ProductController {
-
 	// Criar produto - ok
 	async create(req, res) {
-		try{
+		try {
 			const product = req.body
 			const result = await Product.create(product)
 			res.status(201).json(result)
