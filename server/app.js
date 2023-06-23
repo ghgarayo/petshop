@@ -29,12 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.use('/login', authenticationRouter)
 // app.use('/creditCard', creditCardRouter)
 app.use('/customer', customerRouter)
 app.use('/category', categoryRouter)
 app.use('/product', productRouter)
 app.use('/comment', commentRouter)
+app.use('/login', authenticationRouter)
 
 app.use(function (req, res, next) {
 	console.log('Url: ', req.url)

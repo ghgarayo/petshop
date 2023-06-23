@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const productController = require('../controllers/ProductController')
+const multer = require('multer')
+const upload = multer()
 
 // Rota para criar um novo produto
-router.post('/', productController.create)
+router.post('/', upload.single('image'), productController.create)
 
 // Rota para listar todos os produtos
 router.get('/', productController.list)

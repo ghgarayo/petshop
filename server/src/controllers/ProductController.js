@@ -7,11 +7,24 @@ class ProductController {
 	// Criar produto - ok
 	async create(req, res) {
 		try {
-			const product = req.body
-			const result = await Product.create(product)
-			res.status(201).json(result)
+			let { name, price, description, category, typeOfAnimal, image } =
+        req.body
+			image = req.file.buffer.toString('base64')
+
+			const product = new Product({
+				name,
+				price,
+				description,
+				category,
+				typeOfAnimal,
+				image: Buffer.from(image, 'base64'),
+			})
+
+			const result = await product.save()
+			return res.status(201).json(result)
 		} catch (error) {
-			res.status(500).json({ message: error.message })
+			console.error(error)
+			return res.status(500).json({ mensagem: 'Erro ao cadastrar o produto.' })
 		}
 	}
 
@@ -22,9 +35,22 @@ class ProductController {
 	}
 
 	async getById(req, res) {
-		const code = req.params.code
-		const result = await Product.findOne({ code })
-		res.status(200).json(result)
+		const code = req.params.id
+
+		try {
+			const resultado = await Product.findOne({ _id: code })
+
+			if (!resultado) {
+				res
+					.status(404)
+					.json({ mensagem: `Produto com codigo: ${code} não encontrado!` })
+			} else {
+				res.status(200).json(resultado)
+			}
+		} catch (error) {
+			console.error(error)
+			res.status(500).json({ mensagem: 'Erro ao realizar busca por Codigo.' })
+		}
 	}
 
 	async update(req, res) {
