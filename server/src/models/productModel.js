@@ -14,7 +14,8 @@ const productSchema = new mongoose.Schema({
 		required: true,
 	},
 	image: {
-		type: String,
+		// eslint-disable-next-line no-undef
+		type: Buffer,
 		required: true,
 	},
 	category: {
