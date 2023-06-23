@@ -21,10 +21,10 @@ class ProductController {
 			})
 
 			const result = await product.save()
-			return res.status(201).json(result)
+			res.status(201).json(result)
 		} catch (error) {
 			console.error(error)
-			return res.status(500).json({ mensagem: 'Erro ao cadastrar o produto.' })
+			res.status(500).json({ mensagem: 'Erro ao cadastrar o produto.' })
 		}
 	}
 
