@@ -8,8 +8,8 @@ class ProductController {
 	async create(req, res) {
 		try {
 			let { name, price, description, category, typeOfAnimal, image } =
-        req.body
-			image = req.file.buffer.toString('base64')
+				req.body
+			image = req.file.buffer;
 
 			const product = new Product({
 				name,
