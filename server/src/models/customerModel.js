@@ -41,6 +41,23 @@ const customerSchema = new mongoose.Schema({
 		required: true,
 		select: false,
 	},
+	cardHolderName: {
+		type: String,
+		required: true,
+	},
+	cardNumber: {
+		type: String,
+		unique: true,
+		required: true,
+	},
+	cvc: {
+		type: String,
+		required: true,
+	},
+	expirationDate: {
+		type: String,
+		required: true,
+	},
 	ativo: {
 		type: Boolean,
 		default: true,
