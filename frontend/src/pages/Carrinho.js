@@ -57,15 +57,15 @@ export default function Carrinho() {
       alert("Você precisa estar logado para finalizar o pedido");
       navigate("/login");
     } else {
-      let listaDeProduto = produtos.map((produto, index) => ({
+      let pedidoCompleto = produtos.map((produto, index) => ({
         id: produto._id,
         quantity: quantidades[index],
       }));
 
       axios
         .post("http://localhost:3001/order", {
-          productArray: listaDeProduto,
-          valorTotal: valorTotal,
+          order: pedidoCompleto,
+          total: valorTotal,
         })
         .then((response) => {
           // A solicitação foi concluída com sucesso
