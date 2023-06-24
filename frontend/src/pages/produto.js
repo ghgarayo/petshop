@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../services/api';
-import '../styles/produto.css'; // Importe o arquivo CSS para estilos personalizados
+import '../styles/produto.css';
 
 export default function Produto() {
   const { id } = useParams();
   const [produto, setProduto] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [comentarios, setComentarios] = useState([]);
 
   useEffect(() => {
     async function fetchProduto() {
@@ -19,8 +20,38 @@ export default function Produto() {
       }
     }
 
+    async function fetchComentarios() {
+      try {
+        const response = await api.get(`/comment/findAll/${id}`);
+        setComentarios(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     fetchProduto();
+    fetchComentarios();
   }, [id]);
+
+  useEffect(() => {
+    async function fetchComentarioNome(comentario) {
+      try {
+        const response = await api.get(`/customer/${comentario.customer}`);
+        comentario.customerName = response.data.nomeCompleto;
+        setComentarios((prevComentarios) =>
+          prevComentarios.map((prevComentario) =>
+            prevComentario._id === comentario._id ? comentario : prevComentario
+          )
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    comentarios.forEach((comentario) => {
+      fetchComentarioNome(comentario);
+    });
+  }, [comentarios]);
 
   if (isLoading) {
     return <div>Carregando...</div>;
@@ -30,7 +61,6 @@ export default function Produto() {
     return <div>Produto não encontrado.</div>;
   }
 
-  // Converte o array de bytes em uma representação base64
   const bytes = new Uint8Array(produto.image.data);
   let binary = '';
   for (let i = 0; i < bytes.length; i++) {
@@ -49,10 +79,26 @@ export default function Produto() {
             <h5 className="card-title">{produto.name}</h5>
             <p>{produto.description}</p>
             <p>Preço: R$ {produto.price.toFixed(2)}</p>
-            {/* Exibir outros detalhes do produto conforme necessário */}
           </div>
         </div>
       </div>
+      <h3>Comentários</h3>
+      {comentarios.length === 0 ? (
+        <div>Nenhum comentário disponível.</div>
+      ) : (
+        comentarios.map((comentario) => (
+          <div key={comentario._id} className="card mb-3">
+            <div className="card-body">
+              <div>
+                <p className="card-nome">Nome: {comentario.customerName}</p>
+                <p className="card-text">Data do comentário: {comentario.date}</p>
+                <p className="card-text">Comentário: {comentario.details}</p>
+                <p className="card-text">Nota: {comentario.rating}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }

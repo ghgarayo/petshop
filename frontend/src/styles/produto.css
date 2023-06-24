@@ -8,3 +8,6 @@
     height: auto;
     margin-right: 20px;
   }
+  .card-nome {
+    display: flex;
+  }
