@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Product',
 	},
-	grade: {
+	rating: {
 		type: Number,
 		required: true,
 	},

@@ -7,7 +7,19 @@ class CustomerController {
 	// Criar funcionário - OK
 	async create(req, res) {
 		try {
-			const customer = req.body
+			let { avatar, nomeCompleto, endereco, telefone, cpf, email, senha } = req.body
+			avatar = req.file.buffer
+
+			const customer = new Customer({
+				avatar: Buffer.from(avatar, 'base64'),
+				nomeCompleto,
+				endereco,
+				telefone,
+				cpf,
+				email,
+				senha,
+			})
+
 			const result = await Customer.create(customer)
 			res.status(201).json(result)
 		} catch (error) {
@@ -91,20 +103,20 @@ class CustomerController {
 		}
 	}
 
-	async addCreditCardToCustomer(req, res) {
-		try {
-			console.log(
-				'updateFromCreditCard - Entrou via CreditCardController: ',
-				data
-			)
-			const customerId = data.customerId
-			const _id = String((await Customer.findOne({ customerId }))._id)
-			console.log('G', _id)
-			// Restante do código de atualização
-		} catch (error) {
-			res.status(500).json({ message: error.message })
-		}
-	}
+	// async addCreditCardToCustomer(req, res) {
+	// 	try {
+	// 		console.log(
+	// 			'updateFromCreditCard - Entrou via CreditCardController: ',
+	// 			data
+	// 		)
+	// 		const customerId = data.customerId
+	// 		const _id = String((await Customer.findOne({ customerId }))._id)
+	// 		console.log('G', _id)
+	// 		// Restante do código de atualização
+	// 	} catch (error) {
+	// 		res.status(500).json({ message: error.message })
+	// 	}
+	// }
 
 	// Inativar funcionário pelo código - OK
 	async inactivate(req, res) {
@@ -114,9 +126,9 @@ class CustomerController {
 
 			if (!customer) {
 				return res.status(404).json({ message: 'Cliente não encontrado' })
-			}
-
+			} 
 			customer.ativo = false
+
 			await Customer.findByIdAndUpdate(customer._id, customer, { new: true })
 			res.status(200).json(customer)
 		} catch (error) {

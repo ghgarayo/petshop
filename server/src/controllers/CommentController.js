@@ -6,41 +6,45 @@ const Product = require('../models/productModel')
 const Customer = require('../models/customerModel')
 
 class CommentController {
-	// Cria um novo comentário - Testar
+	// Cria um novo comentário - ok
 	async create(req, res) {
 		try {
-
-			let { productId, grade, customerId, date, details } = req.body
-
-			const productOnRecord = await Product.findOne({ _id: productId })
+			let { product, rating, customer, details } = req.body
+			const productOnRecord = await Product.findOne({ _id: product })
 
 			if (!productOnRecord) {
 				res.status(404).json({ message: 'Produto não encontrado' })
 			}
 
-			const customerOnRecord = await Customer.findOne({ _id: customerId })
+			const customerOnRecord = await Customer.findOne({ _id: customer })
 
 			if (!customerOnRecord) {
 				res.status(404).json({ message: 'Cliente não encontrado' })
 			}
 
 			const comment = new Comment({
-				product: productId,
-				grade,
-				customer: customerId,
-				date,
+				product: product,
+				rating,
+				customer: customer,
 				details,
 			})
 
 			const result = await comment.save()
 			res.status(201).json(result)
 		} catch (error) {
-			res.status(404).json({ message: error.message })
+			res.status(500).json({ message: error.message })
 		}
 	}
 
+	// Lista todos os comentários - ok
 	async list(req, res) {
-		// TODO
+		const result = await Comment.find({})
+
+		if (result.length === 0) {
+			res.status(404).json({ message: 'Nenhum comentário encontrado' })
+		}
+
+		res.status(200).json(result)
 	}
 
 	async getById(req, res) {
@@ -53,30 +57,47 @@ class CommentController {
 	// 	res.status(200).json(result)
 	// }
 
-	// Obtém todos os comentários do produto - testar
+	// Obtém todos os comentários do produto - Ok
 	async getAllByProductId(req, res) {
-		const productId = req.params.productId
-		
-		const productCommentArray = await Comment.find({ product: productId })
+		try {
+			const productId = req.params.productId
+			const productCommentArray = await Comment.find({ product: productId })
 
-		if(!productCommentArray){
-			res.status(404).json({ message: 'Produto não encontrado' })
+			if (!productCommentArray) {
+				res.status(404).json({ message: 'Produto não encontrado' })
+			} else if (productCommentArray.length === 0) {
+				res.status(404).json({ message: 'Nenhum comentário encontrado' })
+			} else {
+				res.status(200).json(productCommentArray)
+			}
+		} catch (error) {
+			res.status(500).json({ message: error.message })
 		}
+	}
 
-		if(productCommentArray.length === 0){
-			res.status(404).json({ message: 'Nenhum comentário encontrado' })
+	async update(req, res) {}
+
+	// Inativa um comentário - ok
+	async inactivate(req, res) {
+		try {
+			console.log(req.params.id)
+			const commentId = req.params.id
+			const commentOnRecord = await Comment.findOne({ _id: commentId })
+	
+			if (!commentOnRecord) {
+				res.status(404).json({ message: 'Comentário não encontrado' })
+			}
+			commentOnRecord.ativo = false
+	
+			const result = await Comment.findByIdAndUpdate(commentId, commentOnRecord, { new: true })
+			res.status(200).json(result)
+		} catch (error) {
+			res.status(500).json({ message: error.message })
 		}
-
-		res.status(200).json(result)
 	}
 
-	async update(req, res) {
 
-	}
-
-	async delete(req, res) {
-
-	}
+	async delete(req, res) {}
 }
 
 module.exports = new CommentController()

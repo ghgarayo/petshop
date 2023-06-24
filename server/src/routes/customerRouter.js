@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const CustomerController = require('../controllers/CustomerController')
-
+const multer = require('multer')
+const upload = multer()
 
 /* 
 
@@ -10,7 +11,7 @@ const CustomerController = require('../controllers/CustomerController')
 */
 
 // Rota para criar um novo cliente
-router.post('/', CustomerController.create)
+router.post('/', upload.single('avatar'), CustomerController.create)
 
 // Rota para listar todos os clientes
 router.get('/', CustomerController.list)

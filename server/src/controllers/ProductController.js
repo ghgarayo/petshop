@@ -8,7 +8,7 @@ class ProductController {
 	async create(req, res) {
 		try {
 			let { name, price, description, category, typeOfAnimal, image } =
-				req.body
+        req.body
 			image = req.file.buffer
 
 			const product = new Product({

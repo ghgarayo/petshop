@@ -12,12 +12,15 @@ router.get('/', commentController.list)
 router.get('/:id', commentController.getById)
 
 // Rota para obter todos os comentários de um produto
-router.get('/:productId', commentController.getAllByProductId)
+router.get('/findAll/:productId', commentController.getAllByProductId)
 
 // Rota para atualizar um produto pelo código
 router.put('/:id', commentController.update)
 
-// Rota para excluir um produto pelo código
+// Rota para inativar um comentário pelo código [USAR PATCH PARA EXCLUSÃO LÓGICA]
+router.patch('/:id', commentController.inactivate)
+
+// Rota para excluir um produto pelo código [APENAS PARA DEMONSTRAÇÃO, NÃO UTILIZAR EM PRODUÇÃO]
 router.delete('/:id', commentController.delete)
 
 module.exports = router

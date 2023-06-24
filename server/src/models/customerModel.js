@@ -1,11 +1,12 @@
+/* eslint-disable no-undef */
 const bcryptjs = require('bcryptjs')
 const mongoose = require('mongoose')
 
 const { Schema } = mongoose
 
 const customerSchema = new mongoose.Schema({
-	fotoPerfil: {
-		type: String,
+	avatara: {
+		type: Buffer,
 	},
 	nomeCompleto: {
 		type: String,

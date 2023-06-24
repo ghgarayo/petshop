@@ -4,6 +4,12 @@ const productController = require('../controllers/ProductController')
 const multer = require('multer')
 const upload = multer()
 
+/* 
+
+  As rotas deste documento devem ser acessadas a partir da rota /product
+
+*/
+
 // Rota para criar um novo produto
 router.post('/', upload.single('image'), productController.create)
 
