@@ -7,7 +7,7 @@ import axios from "axios";
 export default function Carrinho() {
   const [produtos, setProdutos] = useState([]);
   const [valorTotal, setValorTotal] = useState(0);
-  const [quantidades, setQuantidades] = useState([]);
+  const [quantidades, setQuantidades] = useState([1,1,1,1,1,1,1,1]);
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ export default function Carrinho() {
 
       axios
         .post("http://localhost:3001/order", {
-          orderArray: pedidoCompleto,
+          order: pedidoCompleto,
           total: valorTotal,
         },
          {headers}
