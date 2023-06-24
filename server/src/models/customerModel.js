@@ -25,12 +25,6 @@ const customerSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	cartoesCredito: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'CartaoCredito',
-		},
-	],
 	email: {
 		type: String,
 		required: true,
@@ -42,7 +36,7 @@ const customerSchema = new mongoose.Schema({
 		select: false,
 	},
 	cardHolderName: {
-		type: String
+		type: String,
 	},
 	cardNumber: {
 		type: String,

@@ -4,9 +4,21 @@ const bcryptjs = require('bcryptjs')
 
 async function incluirToken(customer) {
 	const token = {
-		'token' : await jwt.sign({ _id: customer._id }, auth.appId, {
-			expiresIn: 3600 // Expira em 3600 segundos ou 1 hora.
-		})
+		token: await jwt.sign(
+			{
+				
+				_id: customer._id,
+				endereco: customer.endereco,
+				cardHolderName: customer.cardHolderName,
+				cardNumber: customer.cardNumber,
+				cvc: customer.cvc,
+				expirationDate: customer.expirationDate,
+			},
+			auth.appId,
+			{
+				expiresIn: 3600, // Expira em 3600 segundos ou 1 hora.
+			}
+		),
 	}
 	// customer.token = token
 	// customer.senha = undefined
@@ -53,7 +65,7 @@ function autorizar(req, res, next) {
 module.exports = {
 	gerarHash,
 	incluirToken,
-	autorizar
+	autorizar,
 }
 
 // Path: src\services\authenticationService.js
