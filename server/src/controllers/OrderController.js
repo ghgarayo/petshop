@@ -1,16 +1,9 @@
-const Customer = require('../models/customerModel')
 const Order = require('../models/orderModel')
 
 class OrderController {
 	async create(req, res) {
 		try {
 			let { customer, date, order, status, total } = req.body
-
-			const customerOnRecord = await Customer.findOne({ _id: customer })
-
-			if (!customerOnRecord) {
-				res.status(404).json({ message: 'Cliente não encontrado' })
-			}
 
 			const orderToDb = new Order({
 				customer: customer,

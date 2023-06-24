@@ -51,6 +51,11 @@ export default function Carrinho() {
     setQuantidades(novasQuantidades);
   };
 
+
+  let headers = {
+    Authorization: `Bearer ${token}` 
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     if (!token) {
@@ -66,7 +71,9 @@ export default function Carrinho() {
         .post("http://localhost:3001/order", {
           order: pedidoCompleto,
           total: valorTotal,
-        })
+        },
+         {headers}
+        )
         .then((response) => {
           // A solicitação foi concluída com sucesso
           alert("Pedido finalizado com sucesso!");

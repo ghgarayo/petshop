@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const orderController = require('../controllers/orderController')
+const orderController = require('../controllers/OrderController')
 
 // Rota para criar um novo pedido
 router.post('/', orderController.create)
