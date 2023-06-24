@@ -1,21 +1,24 @@
 const express = require('express')
 const router = express.Router()
-const productController = require('../controllers/ProductController')
+const commentController = require('../controllers/commentController')
 
-// Rota para criar um novo produto
-router.post('/', productController.create)
+// Rota para criar um novo comentário
+router.post('/', commentController.create)
 
-// Rota para listar todos os produtos
-router.get('/', productController.list)
+// Rota para listar todos os comentários, de todos os produtos, de todos os clientes
+router.get('/', commentController.list)
 
-// Rota para obter um produto pelo código
-router.get('/:code', productController.getById)
+// Rota para obter um comentario pelo código
+router.get('/:id', commentController.getById)
+
+// Rota para obter todos os comentários de um produto
+router.get('/:productId', commentController.getAllByProductId)
 
 // Rota para atualizar um produto pelo código
-router.put('/:code', productController.update)
+router.put('/:id', commentController.update)
 
 // Rota para excluir um produto pelo código
-router.delete('/:code', productController.delete)
+router.delete('/:id', commentController.delete)
 
 module.exports = router
 

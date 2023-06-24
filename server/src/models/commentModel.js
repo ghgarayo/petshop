@@ -17,7 +17,7 @@ const commentSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	comment: String,
+	details: String,
 	ativo:{
 		type: Boolean,
 		default: true,
