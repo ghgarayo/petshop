@@ -19,7 +19,7 @@ export default function Cadastro() {
 
     try {
       const formData = new FormData();
-      formData.append('avatar', avatar);
+      formData.append('avatar', avatar ? avatar : '');
       formData.append('nomeCompleto', nomeCompleto);
       formData.append('telefone', telefone);
       formData.append('endereco', endereco);
