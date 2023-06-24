@@ -1,11 +1,16 @@
-const Product = require('../models/Product')
 const Customer = require('../models/Customer')
-const { list } = require('./CustomerController')
+const Order = require('../models/Order')
 
 class OrderController {
 	async create(req, res) {
 		try {
 			let { customer, date, order, status, total } = req.body
+
+			const customerOnRecord = await Customer.findOne({ _id: customer })
+
+			if (!customerOnRecord) {
+				res.status(404).json({ message: 'Cliente não encontrado' })
+			}
 
 			const orderToDb = new Order({
 				customer: customer,
@@ -30,6 +35,7 @@ class OrderController {
 		}
 		res.status(200).json(result)
 	}
-
-  
 }
+
+module.exports = new OrderController()
+
