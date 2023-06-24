@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
+import jwt from 'jwt-decode';
 
 export default function AlteracaoCadastro() {
   const [avatar, setAvatar] = useState(null);
@@ -14,6 +15,9 @@ export default function AlteracaoCadastro() {
   const [cvc, setCvc] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
 
+  const token = localStorage.getItem('token');
+ 
+  
   useEffect(() => {
     // Simulando a obtenção dos dados do usuário da API
     const fetchUserData = async () => {
@@ -61,7 +65,7 @@ export default function AlteracaoCadastro() {
       formData.append('cvc', cvc);
       formData.append('expirationDate', expirationDate);
 
-      await api.put('/customer', formData, {
+      await api.put('/customer/${id}', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

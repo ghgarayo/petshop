@@ -21,7 +21,7 @@ class CustomerController {
 				expirationDate,
 			} = req.body
 			avatar = req.file.buffer
-
+			
 			const customer = new Customer({
 				avatar: Buffer.from(avatar, 'base64'),
 				nomeCompleto,
@@ -67,7 +67,7 @@ class CustomerController {
 	// Atualizar funcionário pelo código - OK
 	async update(req, res) {
 		try {
-			const codigo = req.params.codigo
+			const codigo = req.params.id
 			const customerOnRecord = await Customer.findOne({ codigo })
 
 			if (!customerOnRecord) {
@@ -76,11 +76,13 @@ class CustomerController {
 
 			const dataToUpdate = req.body
 
+			console.log(dataToUpdate)
+
 			if (
-				dataToUpdate.fotoPerfil &&
-        dataToUpdate.fotoPerfil != customerOnRecord.fotoPerfil
+				dataToUpdate.avatar &&
+        dataToUpdate.avatar != customerOnRecord.avatar
 			) {
-				customerOnRecord.fotoPerfil = dataToUpdate.fotoPerfil
+				customerOnRecord.avatar = dataToUpdate.avatar
 			}
 
 			if (
