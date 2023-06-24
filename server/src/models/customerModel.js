@@ -42,8 +42,7 @@ const customerSchema = new mongoose.Schema({
 		select: false,
 	},
 	cardHolderName: {
-		type: String,
-		required: true,
+		type: String
 	},
 	cardNumber: {
 		type: String,
@@ -56,7 +55,6 @@ const customerSchema = new mongoose.Schema({
 	},
 	expirationDate: {
 		type: String,
-		required: true,
 	},
 	ativo: {
 		type: Boolean,
