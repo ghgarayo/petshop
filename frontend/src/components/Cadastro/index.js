@@ -17,6 +17,10 @@ export default function Cadastro() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (email.indexOf('@') === -1) {
+      alert('O campo de email deve conter o caractere "@"');
+      return;
+    }
     try {
       const formData = new FormData();
       formData.append('avatar', avatar ? avatar : '');
@@ -113,6 +117,7 @@ export default function Cadastro() {
                         className="form-control"
                         value={cpf}
                         onChange={(e) => setCpf(e.target.value)}
+                        maxLength={11} // Limite de 11 caracteres (incluindo máscara)
                       />
                     </div>
                   </div>
@@ -133,6 +138,7 @@ export default function Cadastro() {
                         className="form-control"
                         value={cardNumber}
                         onChange={(e) => setCardNumber(e.target.value)}
+                        maxLength={20} // Limite de 20 caracteres (incluindo máscara)
                       />
                     </div>
                     <div className="form-group">
@@ -142,6 +148,7 @@ export default function Cadastro() {
                         className="form-control"
                         value={cvc}
                         onChange={(e) => setCvc(e.target.value)}
+                        maxLength={3} // Limite de 11 caracteres (incluindo máscara)
                       />
                     </div>
                     <div className="form-group">
@@ -151,6 +158,7 @@ export default function Cadastro() {
                         className="form-control"
                         value={expirationDate}
                         onChange={(e) => setExpirationDate(e.target.value)}
+                        maxLength={5}
                       />
                     </div>
                     <div className="form-group">
