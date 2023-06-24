@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const customerSchema = new mongoose.Schema({
-	avatara: {
+	avatar: {
 		type: Buffer,
 	},
 	nomeCompleto: {

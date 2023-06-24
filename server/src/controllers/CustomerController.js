@@ -20,7 +20,7 @@ class CustomerController {
 				senha,
 			})
 
-			const result = await Customer.create(customer)
+			const result = await customer.save()
 			res.status(201).json(result)
 		} catch (error) {
 			res.status(500).json({ message: error.message })
