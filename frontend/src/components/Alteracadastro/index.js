@@ -20,7 +20,7 @@ export default function AlteracaoCadastro() {
       try {
         const response = await api.get('/customer/${id}');
         const userData = response.data;
-
+        console.log(response.data);
         setNomeCompleto(userData.nomeCompleto);
         setTelefone(userData.telefone);
         setEndereco(userData.endereco);
@@ -61,7 +61,7 @@ export default function AlteracaoCadastro() {
       formData.append('cvc', cvc);
       formData.append('expirationDate', expirationDate);
 
-      await api.put('/customer', formData, {
+      await api.put('/customer/${_id}', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
