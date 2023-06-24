@@ -9,17 +9,19 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	order: [{
-		product:{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Product',
-		}
-	},
-	{
-		quantity: {  
-			type: Number,
-		}
-	}],
+	order: [
+		{
+			product: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Product',
+			},
+		},
+		{
+			quantity: {
+				type: Number,
+			},
+		},
+	],
 	status: {
 		type: String,
 		enum: ['Aguardando Pagamento', 'Faturado', 'Enviado', 'Cancelado'],
@@ -29,10 +31,10 @@ const orderSchema = new mongoose.Schema({
 		type: Number,
 		required: true,
 	},
-	ativo:{
+	ativo: {
 		type: Boolean,
 		default: true,
-	}
+	},
 })
 
 const Order = mongoose.model('Order', orderSchema)

@@ -55,7 +55,7 @@ class OrderController {
 
 			orderOnRecord.status = status
 
-			const result = await orderOnRecord.findByIdAndUpdate(
+			const result = await Order.findByIdAndUpdate(
 				orderId,
 				orderOnRecord,
 				{ new: true }

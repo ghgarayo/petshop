@@ -69,7 +69,7 @@ export default function Carrinho() {
 
       axios
         .post("http://localhost:3001/order", {
-          order: pedidoCompleto,
+          orderArray: pedidoCompleto,
           total: valorTotal,
         },
          {headers}
