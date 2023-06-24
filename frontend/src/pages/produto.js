@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import '../styles/produto.css';
 
-export default function Produto() {
+const Produto = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [produto, setProduto] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [comentarios, setComentarios] = useState([]);
 
   useEffect(() => {
-    async function fetchProduto() {
+    const fetchProduto = async () => {
       try {
         const response = await api.get(`/product/${id}`);
         setProduto(response.data);
@@ -18,23 +18,23 @@ export default function Produto() {
       } catch (error) {
         console.error(error);
       }
-    }
+    };
 
-    async function fetchComentarios() {
+    const fetchComentarios = async () => {
       try {
         const response = await api.get(`/comment/findAll/${id}`);
         setComentarios(response.data);
       } catch (error) {
         console.error(error);
       }
-    }
+    };
 
     fetchProduto();
     fetchComentarios();
   }, [id]);
 
   useEffect(() => {
-    async function fetchComentarioNome(comentario) {
+    const fetchComentarioNome = async (comentario) => {
       try {
         const response = await api.get(`/customer/${comentario.customer}`);
         comentario.customerName = response.data.nomeCompleto;
@@ -46,12 +46,20 @@ export default function Produto() {
       } catch (error) {
         console.error(error);
       }
-    }
+    };
 
     comentarios.forEach((comentario) => {
       fetchComentarioNome(comentario);
     });
   }, [comentarios]);
+
+  const adicionarAoCarrinho = () => {
+    const produtosNoCarrinho = localStorage.getItem('produtosNoCarrinho');
+    const produtos = produtosNoCarrinho ? JSON.parse(produtosNoCarrinho) : [];
+    produtos.push(produto);
+    localStorage.setItem('produtosNoCarrinho', JSON.stringify(produtos));
+    navigate('/carrinho');
+  };
 
   if (isLoading) {
     return <div>Carregando...</div>;
@@ -79,6 +87,7 @@ export default function Produto() {
             <h5 className="card-title">{produto.name}</h5>
             <p>{produto.description}</p>
             <p>Preço: R$ {produto.price.toFixed(2)}</p>
+            <button onClick={adicionarAoCarrinho}>Adicionar ao Carrinho</button>
           </div>
         </div>
       </div>
@@ -101,4 +110,6 @@ export default function Produto() {
       )}
     </div>
   );
-}
+};
+
+export default Produto;

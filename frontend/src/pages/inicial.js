@@ -114,7 +114,6 @@ export default function PaginaInicial() {
                       <h5 className="card-title">{produto.name}</h5>
                       <p className="card-text">{produto.description}</p>
                       <Link to={`/product/${produto._id}`} className="btn btn-primary">Detalhes</Link>
-
                     </div>
                   </div>
                 </div>

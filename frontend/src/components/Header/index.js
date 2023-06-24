@@ -15,8 +15,8 @@ export default function Header() {
 
                 <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li>
-                        <Link className="nav-link custom-button" to="/pedido">
-                            Pedido
+                        <Link className="nav-link custom-button" to="/carrinho">
+                            Meu carrinho
                         </Link>
                     </li>
                     <li>
