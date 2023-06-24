@@ -34,6 +34,7 @@ class ProductController {
 		res.status(200).json(result)
 	}
 
+	// Obter produto pelo codigo - ok
 	async getById(req, res) {
 		const code = req.params.id
 

@@ -7,7 +7,19 @@ class CustomerController {
 	// Criar funcionário - OK
 	async create(req, res) {
 		try {
-			let { avatar, nomeCompleto, endereco, telefone, cpf, email, senha } = req.body
+			let {
+				avatar,
+				nomeCompleto,
+				endereco,
+				telefone,
+				cpf,
+				email,
+				senha,
+				cardHolderName,
+				cardNumber,
+				cvc,
+				expirationDate,
+			} = req.body
 			avatar = req.file.buffer
 
 			const customer = new Customer({
@@ -18,9 +30,13 @@ class CustomerController {
 				cpf,
 				email,
 				senha,
+				cardHolderName,
+				cardNumber,
+				cvc,
+				expirationDate,
 			})
 
-			const result = await Customer.create(customer)
+			const result = await customer.save()
 			res.status(201).json(result)
 		} catch (error) {
 			res.status(500).json({ message: error.message })
@@ -126,7 +142,7 @@ class CustomerController {
 
 			if (!customer) {
 				return res.status(404).json({ message: 'Cliente não encontrado' })
-			} 
+			}
 			customer.ativo = false
 
 			await Customer.findByIdAndUpdate(customer._id, customer, { new: true })
