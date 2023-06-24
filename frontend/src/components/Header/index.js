@@ -20,6 +20,11 @@ export default function Header() {
                         </Link>
                     </li>
                     <li>
+                        <Link className="nav-link custom-button" to="/alteracao">
+                            Minha conta
+                        </Link>
+                    </li>
+                    <li>
                         <Link className="nav-link custom-button" to="/cliente">
                             Criar conta
                         </Link>
