@@ -1,5 +1,5 @@
-const Customer = require('../models/Customer')
-const Order = require('../models/Order')
+const Customer = require('../models/customerModel')
+const Order = require('../models/orderModel')
 
 class OrderController {
 	async create(req, res) {
@@ -35,7 +35,43 @@ class OrderController {
 		}
 		res.status(200).json(result)
 	}
+
+	async getById(req, res) {
+		const orderId = req.params.id
+
+		const orderOnRecord = await Order.findOne({ _id: orderId })
+
+		if (!orderOnRecord) {
+			res.status(404).json({ message: 'Pedido não encontrado' })
+		}
+
+		res.status(200).json(orderOnRecord)
+	}
+
+	async updateStatus(req, res) {
+		try {
+			const orderId = req.params.id
+
+			const orderOnRecord = await Order.findOne({ _id: orderId })
+
+			if (!orderOnRecord) {
+				res.status(404).json({ message: 'Pedido não encontrado' })
+			}
+
+			const { status } = req.body
+
+			orderOnRecord.status = status
+
+			const result = await orderOnRecord.findByIdAndUpdate(
+				orderId,
+				orderOnRecord,
+				{ new: true }
+			)
+			res.status(200).json(result)
+		} catch (error) {
+			res.status(500).json({ message: error.message })
+		}
+	}
 }
 
 module.exports = new OrderController()
-

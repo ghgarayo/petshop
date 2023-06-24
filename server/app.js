@@ -17,6 +17,7 @@ const categoryRouter = require('./src/routes/categoryRouter')
 const productRouter = require('./src/routes/productRouter')
 const commentRouter = require('./src/routes/commentRouter')
 const authenticationRouter = require('./src/routes/authenticationRouter')
+const orderRouter = require('./src/routes/orderRouter')
 
 const app = express()
 app.set('views', path.join(__dirname, 'src/views'))
@@ -35,6 +36,7 @@ app.use('/category', categoryRouter)
 app.use('/product', productRouter)
 app.use('/comment', commentRouter)
 app.use('/login', authenticationRouter)
+app.use('/order', orderRouter)
 
 app.use(function (req, res, next) {
 	console.log('Url: ', req.url)
